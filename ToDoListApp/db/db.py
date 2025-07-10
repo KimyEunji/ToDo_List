@@ -2,7 +2,7 @@ import psycopg2 as psq
 
 # Configuración de la base de datos
 DB_CONFIG = {
-    "dbname": "gimnacio",
+    "dbname": "ToDoList",
     "user": "postgres",
     "password": "42001217",
     "host": "localhost",

@@ -3,58 +3,55 @@ from db.db import conn
 cursor = conn.cursor()
 
 """data = {
-    "nombre"= "Juan",
-    "correo"="Juan",
-    "password"="Juan",
-    "estado" ="Juan"
+    "nombre_actividad" = "Projecto-UTMA",
+    "descripcion" = "Projecto de la universidad",
+    "fecha_actividad " = "dd/mm/yy"
 }"""
 
 # la dunción recibe un diccionario y devuelve una tupla
 # La tupla tiene 2 parametros, el primero el estado y el segundo el mensaje
         
-def crear_socio(data):
-    if not data["nombre"] or not data ["correo"] or not data ["password"] or not data ["estado"]:
+def crear_tarea(data):
+    if not data["nombre_actividad"] or not data ["descripcion"] or not data ["fecha_actividad"]:
         return (False, "es necesario enviar todos los parametros")
-    cursor.execute("INSERT INTO socios(nombre,correo, password,estado) VALUES (%s,%s,%s,%s)",(data["nombre"],data["correo"],data["password"], data["estado"]))
+    cursor.execute("INSERT INTO ToDoList(nombre_actividad, descripcion, fecha_actividad) VALUES (%s,%s,%s,%s)",(data["nombre_actividad"],data["descripcion"],data["fecha_actividad"]))
     conn.commit()
-    return (True, "sicio almacenado con exito")
+    return (True, "tarea almacenada con exito")
 
 ##
-def actualizar_socio(socio_id, data_udate):
-    if not socio_id:
-        return (False, "Es necesario enviar el ID de socio")
+def actualizar_tarea(ToDoList_id, data_udate):
+    if not ToDoList_id:
+        return (False, "Es necesario enviar el ID de la Tarea")
     
-    query = "UPDATE socios SET=%s, correo=%s, password=%s, estado=%s WHERE id=%s"
+    query = "UPDATE nombre_actividad SET=%s, descripcion=%s, fecha_actividad=%s, WHERE id=%s"
     variables = (
-        data_udate["name"],
-        data_udate["email"],
-        data_udate["password"],
-        data_udate["state"],
-        socio_id
+        data_udate["nombre_actividad"],
+        data_udate["descripcion"],
+        data_udate["fecha_actividad"],
+        ToDoList_id
     )
     cursor.execute(query, variables)
     conn.commit()
-    return (True, "socio actualizado con exito")
+    return (True, "ToDo_List actualizado con exito")
 
-#hhhh
-def eliminar_socio(socio_id):
-    query = "DELETE FROM socios WHERE id=%s"
-    variable = (socio_id)
+def eliminar_tarea(ToDo_List_id):
+    query = "DELETE FROM ToDo_List WHERE id=%s"
+    variable = (ToDo_List_id)
     cursor.execute(query, variable)
     conn.commit()
-    return (True,"socio eliminado con exito")
+    return (True,"Tarea eliminada con exito")
 
  
-def buscar_socio(socio_id):
-    query = "SELECT * FROM socios WHERE id=%"
-    variable = (socio_id)
-    socio = cursor.fetchone
-    if not socio:
-        return(False, "no se encontro socio con ese id")
-    return(True, socio)
+def buscar_tarea(ToDo_List_id):
+    query = "SELECT * FROM ToDo_List WHERE id=%"
+    variable = (ToDo_List_id)
+    ToDo_List = cursor.fetchone
+    if not ToDo_List:
+        return(False, "no se encontro la tarea con ese id")
+    return(True, ToDo_List)
 
-def buscar_socios():
-    query = "SELECT * FROM socios ORDER BY id"
+def buscar_tarea():
+    query = "SELECT * FROM ToDo_List ORDER BY id"
     cursor.execute(query)
-    socios = cursor.fetchall()
-    return(True,socios)
+    ToDo_List = cursor.fetchall()
+    return(True,ToDo_List)
