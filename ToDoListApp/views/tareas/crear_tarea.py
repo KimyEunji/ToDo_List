@@ -35,14 +35,16 @@ def mostrar_crear_tarea(ventana:tk.Tk):
     # Guardar Tareas
     def enviar():
         data = {}
-        data["nombre_actividad"] = entry_name.get()
-        data["descripcion"] = entry_email.get()
-        data["fecha_actividad"] = entry_password.get()
+        data["nombre"] =entry_name.get()
+        data["correo"] =entry_email.get()
+        data["password"] =entry_password.get()
+        data["estado"] = "activo"
+
         status, msg = crear_tarea(data)
         if not status:
-            mb.showerror("Ocurrio un Error", msg)
+            mb.showerror("ocurrio un error", msg)
             return
-        mb.showinfo("Exito", msg)
+        mb.showinfo("Exito!", msg)
 
     tk.Button(ventana, text="Guardar", command=enviar, relief="flat", font=TEXTS, fg=THIRD_COLOR, bg=SECONDARY_COLOR).grid(column=1, row=7)
     ventana.mainloop()
